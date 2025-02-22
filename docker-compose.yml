@@ -1,0 +1,21 @@
+name: identity
+
+services:
+  api:
+    build:
+      context: api
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Docker"
+    ports:
+      - "5001:8080"
+
+  database:
+    image: mysql:5.7.38
+    environment:
+      MYSQL_ROOT_PASSWORD: "identity"
+      MYSQL_USER: "identity"
+      MYSQL_PASSWORD: "identity"
+      MYSQL_DATABASE: "identity"
+    ports:
+      - "3306:3306"
