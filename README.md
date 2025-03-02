@@ -1,5 +1,6 @@
 # Home Identity
 
+UI: http://localhost:3001
 API: http://localhost:5001/swagger
 
 ## Environments
@@ -23,5 +24,5 @@ dotnet run --project api/Home.Identity.csproj
 Start:
 
 ```bash
-docker compose up -d --build --remove-orphans
+docker compose up -d --build --remove-orphans --build
 ```

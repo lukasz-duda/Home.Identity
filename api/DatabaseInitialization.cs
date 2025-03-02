@@ -44,7 +44,7 @@ public static class DatabaseInitialization
     }
 }
 
-public static class IdentityResultExtensions
+static class IdentityResultExtensions
 {
     public static void EnsureSuccess(this IdentityResult result)
     {

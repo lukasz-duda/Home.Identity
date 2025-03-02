@@ -1,6 +1,16 @@
 name: identity
 
 services:
+
+  ui:
+    build:
+      context: ui
+      dockerfile: Dockerfile
+    ports:
+      - "3001:80"
+    depends_on:
+      - api
+
   api:
     build:
       context: api
@@ -9,6 +19,8 @@ services:
       ASPNETCORE_ENVIRONMENT: "Docker"
     ports:
       - "5001:8080"
+    depends_on:
+      - database
 
   database:
     image: mysql:5.7.38

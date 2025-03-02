@@ -47,6 +47,15 @@ builder.Services.AddAuthentication()
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
 builder.Services.AddAuthorization();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy => policy
+        .WithOrigins(builder.Configuration.GetCorsOrigin())
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
+});
+
 var app = builder.Build();
 
 app.UseSwagger();
@@ -62,6 +71,8 @@ app.MapGet("/", () => "Home.Identity")
     .WithOpenApi();
 
 app.MapIdentityApi<IdentityUser>();
+
+app.UseCors();
 
 await app.UpdateDatabaseAsync();
 await app.EnsureAdminAsync();

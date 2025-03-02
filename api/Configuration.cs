@@ -11,4 +11,14 @@ public static class Configuration
         }
         return connectionString;
     }
+
+    public static string GetCorsOrigin(this IConfiguration configuration)
+    {
+        string? corsOrigin = configuration.GetValue<string>("CorsOrigin");
+        if (string.IsNullOrEmpty(corsOrigin))
+        {
+            throw new InvalidOperationException($"CorsOrigin not found.");
+        }
+        return corsOrigin;
+    }
 }
