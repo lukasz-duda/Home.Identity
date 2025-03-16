@@ -11,13 +11,13 @@ export async function logIn({
   password,
 }: LoginRequest): Promise<CommandResult> {
   const request: ApiLoginRequest = {
-    email: username ?? "",
+    username: username ?? "",
     password: password,
   };
-  return post({ path: "/login?useCookies=true", request });
+  return post({ path: "/login", request });
 }
 
 export interface ApiLoginRequest {
-  email: string;
+  username: string;
   password: string | null;
 }

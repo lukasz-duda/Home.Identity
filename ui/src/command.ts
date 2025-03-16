@@ -10,7 +10,7 @@ export interface UseCommandProps {
   command: () => Promise<CommandResult>;
   onSuccess: () => void;
   warning: NotificationInstance["warning"];
-  errorTitle: string;
+  errorMessage: string;
 }
 
 export interface UseCommandResult {
@@ -22,7 +22,7 @@ export function useCommand({
   command,
   onSuccess,
   warning,
-  errorTitle,
+  errorMessage,
 }: UseCommandProps) {
   const [pending, setPending] = useState(false);
 
@@ -33,7 +33,7 @@ export function useCommand({
       setPending(false);
 
       if (result.error) {
-        warning({ message: errorTitle, description: result.error });
+        warning({ message: errorMessage, description: result.error });
       } else {
         onSuccess();
       }

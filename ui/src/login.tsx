@@ -20,10 +20,10 @@ export function Login() {
     const { execute, pending } = useCommand({
         command: logInUser,
         onSuccess: () => {
-            api.success({ message: login.successTitle });
+            api.success({ message: login.successMessage });
         },
         warning: api.warning,
-        errorTitle: login.errorTitle
+        errorMessage: login.errorMessage
     });
 
     return (

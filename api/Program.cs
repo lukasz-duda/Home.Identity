@@ -1,7 +1,6 @@
 using Home.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +13,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders()
-    .AddApiEndpoints()
     .AddSignInManager<SignInManager<IdentityUser>>();
 
 builder.Services.Configure<IdentityOptions>(options =>
@@ -43,8 +41,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 
 builder.Services.AddAuthentication()
-    .AddBearerToken(IdentityConstants.BearerScheme)
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
+    .AddCookie();
 builder.Services.AddAuthorization();
 
 builder.Services.AddCors(options =>
@@ -56,6 +53,8 @@ builder.Services.AddCors(options =>
         .AllowCredentials());
 });
 
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
 
 app.UseSwagger();
@@ -66,11 +65,24 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseExceptionHandler();
+
 app.MapGet("/", () => "Home.Identity")
     .WithName("GetName")
     .WithOpenApi();
 
-app.MapIdentityApi<IdentityUser>();
+app.MapPost("/login", async (LoginRequest request, SignInManager<IdentityUser> signInManager) =>
+{
+    var result = await signInManager.PasswordSignInAsync(request.Username, request.Password, isPersistent: true, lockoutOnFailure: true);
+    if (result.Succeeded)
+    {
+        return Results.NoContent();
+    }
+    else
+    {
+        return Results.Unauthorized();
+    }
+});
 
 app.UseCors();
 
