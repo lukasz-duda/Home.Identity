@@ -1,4 +1,3 @@
-
 export const polishLocale = {
   login: {
     title: "Logowanie",
@@ -7,9 +6,5 @@ export const polishLocale = {
     logIn: "Zaloguj się",
     errorMessage: "Błąd logowania",
     successMessage: "Użytkownik zalogowany.",
-  },
-  error: {
-    unauthorized: "Niautoryzowany dostęp.",
-    unexpected: "Wystąpił nieoczekiwany błąd.",
   },
 };

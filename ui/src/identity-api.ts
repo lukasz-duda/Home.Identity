@@ -1,5 +1,4 @@
-import { post } from "./api";
-import { CommandResult } from "./command";
+import { CommandResult, post } from "home-shared-ui";
 
 export interface LoginRequest {
   username: string | null;
