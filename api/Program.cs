@@ -32,8 +32,10 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = true;
 });
 
+string cookieDomain = builder.Configuration.GetCookieDomain();
 builder.Services.ConfigureApplicationCookie(options =>
 {
+    options.Cookie.Domain = cookieDomain;
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromDays(14);
     options.SlidingExpiration = false;

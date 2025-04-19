@@ -21,4 +21,14 @@ public static class Configuration
         }
         return corsOrigin;
     }
+
+    public static string GetCookieDomain(this IConfiguration configuration)
+    {
+        string? cookieDomain = configuration.GetValue<string>("CookieDomain");
+        if (string.IsNullOrEmpty(cookieDomain))
+        {
+            throw new InvalidOperationException($"CookieDomain not found.");
+        }
+        return cookieDomain;
+    }
 }
