@@ -31,4 +31,14 @@ public static class Configuration
         }
         return cookieDomain;
     }
+
+    public static string GetDataProtectionKeysPath(this IConfiguration configuration)
+    {
+        string? dataProtectionKeysPath = configuration.GetValue<string>("DataProtectionKeysPath");
+        if (string.IsNullOrEmpty(dataProtectionKeysPath))
+        {
+            throw new InvalidOperationException($"DataProtectionKeysPath not found.");
+        }
+        return dataProtectionKeysPath;
+    }
 }

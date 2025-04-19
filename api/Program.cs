@@ -1,6 +1,7 @@
 using Home.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +57,11 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddProblemDetails();
+
+var keysPath = new DirectoryInfo(builder.Configuration.GetDataProtectionKeysPath());
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(keysPath)
+    .SetApplicationName("Home");
 
 var app = builder.Build();
 
