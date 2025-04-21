@@ -37,5 +37,5 @@ Start [infrastructure](https://github.com/lukasz-duda/Home.Modules).
 Start identity-api and identity-ui:
 
 ```bash
-docker compose up -d --build --remove-orphans --build
+docker compose up -d --build --remove-orphans
 ```
