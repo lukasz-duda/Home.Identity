@@ -38,8 +38,8 @@ export function Login() {
     onSuccess: () => {
       api.success({
         message: login.successMessage,
-        duration: 2,
-        onClose: redirect
+        duration: 1,
+        onClose: redirect,
       });
     },
     warning: api.warning,
@@ -49,7 +49,11 @@ export function Login() {
   return (
     <>
       {contextHolder}
-      <Flex justify="center" align="center" style={{ height: "100vh" }}>
+      <Flex
+        justify="center"
+        align="center"
+        style={{ height: "100vh" }}
+      >
         <Card title={login.title}>
           <Form>
             <TextField
