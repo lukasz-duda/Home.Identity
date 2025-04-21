@@ -11,6 +11,18 @@ import { polishLocale } from "./locale";
 
 const { login } = polishLocale;
 
+const redirectUrls: string = import.meta.env.VITE_API_REDIRECT_URLS;
+
+function redirect() {
+  const searchParams = new URLSearchParams(window.location.search);
+  const redirectUrl = searchParams.get("redirect");
+  redirectUrls.split(",").some((allowedUrl) => {
+    if (redirectUrl?.startsWith(allowedUrl)) {
+      window.location.href = redirectUrl;
+    }
+  });
+}
+
 export function Login() {
   const [username, setUsername] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
@@ -24,7 +36,11 @@ export function Login() {
   const { execute, pending } = useCommand({
     command: logInUser,
     onSuccess: () => {
-      api.success({ message: login.successMessage });
+      api.success({
+        message: login.successMessage,
+        duration: 2,
+        onClose: redirect
+      });
     },
     warning: api.warning,
     errorMessage: login.errorMessage,
