@@ -17,17 +17,13 @@ services:
       dockerfile: Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: "Docker"
+    volumes:
+      - ../keys:/app/keys
     ports:
       - "5001:8080"
-    depends_on:
-      - database
+    networks:
+      - home_infrastructure
 
-  database:
-    image: mysql:5.7.38
-    environment:
-      MYSQL_ROOT_PASSWORD: "identity"
-      MYSQL_USER: "identity"
-      MYSQL_PASSWORD: "identity"
-      MYSQL_DATABASE: "identity"
-    ports:
-      - "3306:3306"
+networks:
+  home_infrastructure:
+    external: true

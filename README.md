@@ -13,10 +13,11 @@ Requirements:
 
 ### Development
 
+Start [infrastructure](https://github.com/lukasz-duda/Home.Modules).
+
 Start identity-api:
 
 ```bash
-docker compose up -d database --remove-orphans
 dotnet run --project api/Home.Identity.csproj
 ```
 
@@ -31,7 +32,9 @@ npm run dev
 
 ### Docker
 
-Start:
+Start [infrastructure](https://github.com/lukasz-duda/Home.Modules).
+
+Start identity-api and identity-ui:
 
 ```bash
 docker compose up -d --build --remove-orphans --build

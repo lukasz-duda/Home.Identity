@@ -36,6 +36,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 string cookieDomain = builder.Configuration.GetCookieDomain();
 builder.Services.ConfigureApplicationCookie(options =>
 {
+    options.Cookie.Name = "Home.Identity";
     options.Cookie.Domain = cookieDomain;
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromDays(14);
